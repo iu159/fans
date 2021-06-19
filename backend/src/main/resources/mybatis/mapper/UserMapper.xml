@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.wuyi.fans.mapper.UserMapper">
+    <sql id="ALL_COLUMN">
+        uid,username,password,description,email,telephone,profile_picture_url,update_time,create_time,user_status
+    </sql>
+
+    <select id="getUserByIdIgnoreStatus" resultType="edu.wuyi.fans.model.entity.User">
+        SELECT <include refid="ALL_COLUMN"/> FROM t_user WHERE uid =#{uid}
+    </select>
+
+    <update id="updateUser">
+        UPDATE t_user
+        <set>
+            <if test="user.username != null and user.username != ''">username=#{user.username},</if>
+            <if test="user.password != null and user.password != ''">password=#{user.password},</if>
+            <if test="user.description != null and user.description != ''">description=#{user.description},</if>
+            <if test="user.email != null and user.email != ''">email=#{user.email},</if>
+            <if test="user.telephone != null and user.telephone != ''">telephone=#{user.telephone},</if>
+            <if test="user.profilePictureUrl != null and user.profilePictureUrl != ''">profile_picture_url=#{user.profilePictureUrl},</if>
+            update_time=now(),
+            <if test="user.userStatus != null and user.userStatus != ''">user_status=#{user.userStatus},</if>
+        </set>
+        WHERE uid = #{user.uid}
+    </update>
+
+    <update id="updateUserStatusById">
+        UPDATE t_user SET user_status=#{status}, update_time=#{updateTime}  WHERE uid=#{uid}
+    </update>
+
+    <select id="getUserByEmailIgnoreStatus" resultType="edu.wuyi.fans.model.entity.User">
+        SELECT <include refid="ALL_COLUMN"/> FROM  t_user WHERE  email=#{email}
+    </select>
+
+    <select id="getUserByTelIgnoreStatus" resultType="edu.wuyi.fans.model.entity.User">
+        SELECT <include refid="ALL_COLUMN"/> FROM  t_user WHERE  telephone=#{telephone}
+    </select>
+
+    <select id="getUserByUsernameIgnoreStatus" resultType="edu.wuyi.fans.model.entity.User">
+        SELECT <include refid="ALL_COLUMN"/> FROM  t_user WHERE  username=#{username}
+    </select>
+
+    <select id="listUser" resultType="edu.wuyi.fans.model.entity.User">
+        SELECT <include refid="ALL_COLUMN"/> FROM  t_user ORDER BY username
+    </select>
+</mapper>

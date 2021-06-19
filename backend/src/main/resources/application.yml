@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: fans
+  profiles:
+    active: dev
+
+  mail:
+    host: smtp.163.com
+    username: your email here
+    password: your Password Here
+    properties:
+      mail:
+        smtp:
+          auth: ture
+          starttls:
+            enable: true
+            required: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+          ssl:
+            trust: smtp.163.com
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-not-delete-value: 1
+      logic-delete-value: 0
+  mapper-locations: classpath*:mybatis/mapper/*xml

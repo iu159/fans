@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.wuyi.fans.mapper.RoleMapper">
+    <sql id="BASE_COLUMN">
+        r.id, r.type, r.summary, r.create_time, r.update_time
+    </sql>
+
+    <select id="getRoleByPermissionId" resultType="edu.wuyi.fans.model.entity.Role">
+        SELECT <include refid="BASE_COLUMN"/>
+        FROM t_role r
+        LEFT JOIN t_role_permission rp
+        ON r.id = rp.role_id
+        LEFT JOIN t_permission p
+        ON rp.permission_id = p.id
+        WHERE p.id = #{permissionId}
+    </select>
+
+    <select id="listRolesByUid" resultType="edu.wuyi.fans.model.entity.Role">
+        SELECT <include refid="BASE_COLUMN"/>
+        FROM t_role r
+        LEFT JOIN t_user_role ur
+        ON r.id = ur.role_id
+        LEFT JOIN t_user u
+        ON u.uid = ur.user_id
+        WHERE u.uid = #{uid}
+    </select>
+</mapper>

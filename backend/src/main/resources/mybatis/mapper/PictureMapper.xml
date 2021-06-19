@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.wuyi.fans.mapper.PictureMapper">
+    <sql id="ALL_COLUMN">
+        pid,user_id,title,summary,tags,category,status,view_count,url,sm_url,is_top,create_time,update_time
+    </sql>
+
+    <update id="recoverPicture">
+        UPDATE t_picture SET status=1, update_time=now() WHERE pid=#{pid}
+    </update>
+
+    <select id="listPictureIgnoreStatus" resultType="edu.wuyi.fans.model.entity.Picture">
+        SELECT <include refid="ALL_COLUMN"/> FROM  t_picture ORDER BY user_id
+    </select>
+</mapper>
