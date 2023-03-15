@@ -20,7 +20,7 @@
     "justifiedGallery": "^3.8.1",
     "node-sass": "^4.14.1",
     "nouislider": "^14.6.0",
-    "qs": "^6.9.4",
+    "qs": "^6.9.7",
     "vue": "^2.6.11",
     "vue-clipboard2": "^0.3.1",
     "vue-img-cutter": "^2.1.10",
